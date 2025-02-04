@@ -102,6 +102,21 @@ class TestStringCalculator(unittest.TestCase):
             "Error: Negative numbers are not allowed -1,-5,-6"):
             string_calculator("//;\n-1;2,-5\n-6")
 
+    def test_string_calculator_with_numbers_greater_than_thousand(self):
+        """
+        This test method is used to check,
+             if input_string contains number > 1000:
+                then string_calculator() function should ignore such >1000
+                     numbers and add rest of the numbers as final output
+             else:
+                it will throw an Assertion Error
+        """
+        self.assertEqual(string_calculator("2,1001"), 2)
+        self.assertEqual(string_calculator("2,1001,1000"), 1002)
+        self.assertEqual(string_calculator("2,1001,1000\n5"), 1007)
+        self.assertEqual(string_calculator("//;\n1;2\n5;1001"), 8)
+        self.assertEqual(string_calculator("1001"), 0)
+
 
 if __name__ == '__main__':
     unittest.main()

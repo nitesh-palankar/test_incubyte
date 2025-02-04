@@ -40,5 +40,8 @@ def string_calculator(numbers):
             ','.join(negative_numbers))
         raise ValueError(error_msg)
 
-    sum_numbers = sum(int(string_number) for string_number in string_numbers)
+    # Check for numbers > 1000
+    # If present, then ignore such numbers which are greater than 1000
+    sum_numbers = sum(int(string_number) for string_number in string_numbers
+                      if int(string_number) <= 1000)
     return sum_numbers
