@@ -8,7 +8,13 @@ def string_calculator(numbers):
     :return: int, Sum of Numbers present in the given input string
     """
 
-    if len(numbers.strip()) == 0:
+    numbers = numbers.strip()   # Removed leading/trailing whitespaces if any
+
+    # Check if string is empty, simply return 0
+    if len(numbers) == 0:
         return 0
 
-    return
+    # Check for comma separated numbers
+    string_numbers = numbers.split(',')
+    sum_numbers = sum(int(string_number) for string_number in string_numbers)
+    return sum_numbers
