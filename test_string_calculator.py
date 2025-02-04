@@ -6,7 +6,7 @@ class TestStringCalculator(unittest.TestCase):
     def test_string_calculator_without_return(self):
         """
         This method is used to show that if string_calculator method does not
-        return anything(i.e. None) then it will throw an Assertion Error
+        return anything(or returns None) then it will throw an Assertion Error
         """
         self.assertEqual(string_calculator("1,2"), 3)
 
