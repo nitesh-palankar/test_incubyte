@@ -1,6 +1,6 @@
 def string_calculator(numbers):
     """
-    This method is used to parse the input string based on the given Delimiters
+    This function is used to parse the input string based on the given Delimiters
     and different criteria. And it will return the sum of numbers present in
     the given string(separate by delimiters).
 
