@@ -16,7 +16,18 @@ def string_calculator(numbers):
     if len(numbers) == 0:
         return 0
 
-    # Check for comma and newline separated numbers
-    string_numbers = re.split(r",|\n", numbers)
+    # Check for given default delimiter in first line of string
+    default_delimiter = None
+    default_delimiter_first_line_flag = re.match(r"//(.)\n", numbers)
+
+    if default_delimiter_first_line_flag:
+        # If default delimiter is present in first line of string, then take it
+        default_delimiter = default_delimiter_first_line_flag.group(1)
+        numbers = re.sub(r"^//.\n", "", numbers)    # Remove first line
+
+    # Split string based on different delimiters
+    # such as comma, newline or default delimiter given in first line
+    # or combination of these delimiters
+    string_numbers = re.split(rf",|\n|{default_delimiter}", numbers)
     sum_numbers = sum(int(string_number) for string_number in string_numbers)
     return sum_numbers
