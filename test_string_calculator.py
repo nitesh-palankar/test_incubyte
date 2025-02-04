@@ -73,6 +73,35 @@ class TestStringCalculator(unittest.TestCase):
         self.assertEqual(string_calculator("//;\n1;2\n5"), 8)
         self.assertEqual(string_calculator("//:\n1:2"), 3)
 
+    def test_string_calculator_with_negative_numbers(self):
+        """
+        This test method is used to check,
+             if input_string contains negative numbers:
+                then string_calculator() function should throw an error saying
+                that "negative numbers not allowed <negative_number>"
+             else:
+                it will throw an Assertion Error
+        """
+        with self.assertRaisesRegex(ValueError,
+            "Error: Negative numbers are not allowed -1"):
+            string_calculator("-1,2")
+
+        with self.assertRaisesRegex(ValueError,
+            "Error: Negative numbers are not allowed -1,-5"):
+            string_calculator("-1,2,-5")
+
+        with self.assertRaisesRegex(ValueError,
+            "Error: Negative numbers are not allowed -2"):
+            string_calculator("1\n-2")
+
+        with self.assertRaisesRegex(ValueError,
+            "Error: Negative numbers are not allowed -2,-5"):
+            string_calculator("//;\n1;-2,-5")
+
+        with self.assertRaisesRegex(ValueError,
+            "Error: Negative numbers are not allowed -1,-5,-6"):
+            string_calculator("//;\n-1;2,-5\n-6")
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -29,5 +29,16 @@ def string_calculator(numbers):
     # such as comma, newline or default delimiter given in first line
     # or combination of these delimiters
     string_numbers = re.split(rf",|\n|{default_delimiter}", numbers)
+
+    # Check for Negative numbers in input_string
+    # If present, then raise error message with negative numbers
+    negative_numbers = [string_number for string_number in string_numbers
+                        if int(string_number) < 0]
+
+    if negative_numbers:
+        error_msg = "Error: Negative numbers are not allowed {0}".format(
+            ','.join(negative_numbers))
+        raise ValueError(error_msg)
+
     sum_numbers = sum(int(string_number) for string_number in string_numbers)
     return sum_numbers
