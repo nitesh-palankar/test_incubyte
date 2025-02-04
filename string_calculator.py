@@ -1,3 +1,5 @@
+import re
+
 def string_calculator(numbers):
     """
     This function is used to parse the input_string based on the given
@@ -14,7 +16,7 @@ def string_calculator(numbers):
     if len(numbers) == 0:
         return 0
 
-    # Check for comma separated numbers
-    string_numbers = numbers.split(',')
+    # Check for comma and newline separated numbers
+    string_numbers = re.split(r",|\n", numbers)
     sum_numbers = sum(int(string_number) for string_number in string_numbers)
     return sum_numbers

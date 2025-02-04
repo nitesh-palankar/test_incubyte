@@ -23,16 +23,41 @@ class TestStringCalculator(unittest.TestCase):
         """
         self.assertEqual(string_calculator("1"), 1)
 
-    def test_string_calculator_with_only_comma_delimiter(self):
+    def test_string_calculator_with_only_comma_delimiter_two_numbers(self):
         """
         This test method is used to check,
-             if input_string is comma separated:
+             if input_string is comma separated(only two numbers):
                 then string_calculator() function should separate numbers on
                      basis of comma and add them as final output
              else:
                 it will throw an Assertion Error
         """
         self.assertEqual(string_calculator("1,2"), 3)
+
+    def test_string_calculator_with_only_comma_delimiter_multiple_numbers(self):
+        """
+        This test method is used to check,
+             if input_string is comma separated(multiple numbers):
+                then string_calculator() function should separate numbers on
+                     basis of comma and add them as final output
+             else:
+                it will throw an Assertion Error
+        """
+        self.assertEqual(string_calculator("1,2,7,5"), 15)
+
+    def test_string_calculator_with_comma_newline_delimiter(self):
+        """
+        This test method is used to check,
+             if input_string is comma or newline separated:
+                then string_calculator() function should separate numbers on
+                     basis of comma or newline and add them as final output
+             else:
+                it will throw an Assertion Error
+        """
+        self.assertEqual(string_calculator("1,2\n5"), 8)
+        self.assertEqual(string_calculator("1\n2,5"), 8)
+        self.assertEqual(string_calculator("1\n2\n5"), 8)
+        self.assertEqual(string_calculator("1,2,5"), 8)
 
 
 if __name__ == '__main__':
