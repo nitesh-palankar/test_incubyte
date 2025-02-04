@@ -3,12 +3,15 @@ import unittest
 
 
 class TestStringCalculator(unittest.TestCase):
-    def test_string_calculator_without_return(self):
+    def test_string_calculator_with_empty_string(self):
         """
-        This method is used to show that if string_calculator function does not
-        return anything(or returns None) then it will throw an Assertion Error
+        This test method is used to check,
+             if input_string is empty:
+                then string_calculator() function should return 0
+             else:
+                it will throw an Assertion Error
         """
-        self.assertEqual(string_calculator("1,2"), 3)
+        self.assertEqual(string_calculator(""), 0)
 
 
 if __name__ == '__main__':
