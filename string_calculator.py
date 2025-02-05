@@ -1,4 +1,6 @@
 import re
+from collections import Counter
+
 
 def string_calculator(numbers):
     """
@@ -17,28 +19,37 @@ def string_calculator(numbers):
         return 0
 
     # Check for given default delimiter in first line of string
-    default_delimiter = None
-    default_delimiter_first_line_flag = re.match(r"//(.+)\n", numbers)
-    default_delimiter_char = None
+    default_delimiter_first_line_flag = re.match(r"//([\W]+)\n", numbers)
+
+    final_delimiters_pattern = r",|\n"  # Default delimiter pattern
 
     if default_delimiter_first_line_flag:
         # If default delimiter is present in first line of string, then take it
-        default_delimiter = default_delimiter_first_line_flag.group(1)
-        numbers = re.sub(r"^//.+\n", "", numbers)    # Remove first line
+        default_delimiter_data = default_delimiter_first_line_flag.group(1)
+        numbers = re.sub(r"^//[\W]+\n", "", numbers)    # Remove first line
 
-        default_delimiter_char = default_delimiter[0]
+        default_delimiter_data_with_count = Counter(default_delimiter_data)
 
+        # Handle scenario where comma is present in first line of string as
+        # default delimiter. In such case, take count of comma present in
+        # first line as default delimiter for comma delimiter type
+        if ',' in default_delimiter_data_with_count:
+            final_delimiters_pattern = r"\n"
 
-    # Split string based on different delimiters
-    # such as comma, newline or default delimiter given in first line
-    # or combination of these delimiters
+        # Build the delimiter pattern
+        for cur_delimiter, count in default_delimiter_data_with_count.items():
+            if cur_delimiter in ('*', '+', '.'):
+                # Handled characters which are special in Python Regex
+                final_delimiters_pattern += (rf"|\{cur_delimiter}"
+                                             + '{' + str(count) + '}')
+            else:
+                final_delimiters_pattern += (r'|' + cur_delimiter
+                                         + '{' + str(count) + '}')
 
-    if default_delimiter_char == '*':
-        string_numbers = re.split(rf",|\n|[{default_delimiter}]+", numbers)
-    elif default_delimiter_char == ',':
-        string_numbers = re.split(rf"\n|{default_delimiter}", numbers)
-    else:
-        string_numbers = re.split(rf",|\n|{default_delimiter}", numbers)
+    # Split string based on the derived delimiter pattern which contains
+    # different delimiters such as comma, newline or default delimiters
+    # given in the first line or combination of these delimiters
+    string_numbers = re.split(final_delimiters_pattern, numbers)
 
     # Check for Negative numbers in input_string
     # If present, then raise error message with negative numbers

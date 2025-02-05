@@ -132,6 +132,47 @@ class TestStringCalculator(unittest.TestCase):
         self.assertEqual(string_calculator("//,,\n1\n2,,5"), 8)
         self.assertEqual(string_calculator("//:::\n1:::2,4"), 7)
 
+    def test_string_calculator_multiple_default_delimiter_single_length(self):
+        """
+        This test method is used to check,
+             if input_string is “//[delimiter][delimiter]\n[numbers…]”
+                for example “//[*][%]\n1*2%3”
+                should return six
+                where the default delimiters are ‘*’ and '%'(single-length)
+             else:
+                it will throw an Assertion Error
+        """
+        self.assertEqual(string_calculator("//;%\n1;2%3"), 6)
+        self.assertEqual(string_calculator("//,;\n1;2,5"), 8)
+        self.assertEqual(string_calculator("//;*,\n1;2\n5*2"), 10)
+
+    def test_string_calculator_multiple_default_delimiter_multi_length(self):
+        """
+        This test method is used to check,
+             if input_string is “//[delimiter][delimiter]\n[numbers…]”
+                for example “//[***][%%]\n1***2%%3”
+                should return six
+                where the default delimiters are ‘***’ and '%%' (multi-length)
+             else:
+                it will throw an Assertion Error
+        """
+        self.assertEqual(string_calculator("//;;%%\n1;;2%%3"), 6)
+        self.assertEqual(string_calculator("//,,;;;\n1;;;2,,5"), 8)
+
+    def test_string_calculator_multiple_default_delimiter_single_multi_length(
+            self):
+        """
+        This test method is used to check,
+             if input_string is “//[delimiter][delimiter]\n[numbers…]”
+                for example “//[***][%]\n1***2%3”
+                should return six
+                where the default delimiters are ‘***’ and '%'
+                     (both single and multiple length)
+             else:
+                it will throw an Assertion Error
+        """
+        self.assertEqual(string_calculator("//;***%%,\n1;2\n6%%5***2,4"), 20)
+
 
 if __name__ == '__main__':
     unittest.main()
