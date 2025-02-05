@@ -117,6 +117,21 @@ class TestStringCalculator(unittest.TestCase):
         self.assertEqual(string_calculator("//;\n1;2\n5;1001"), 8)
         self.assertEqual(string_calculator("1001"), 0)
 
+    def test_string_calculator_with_default_delimiter_multiple_length(self):
+        """
+        This test method is used to check,
+             if input_string is “//[delimiter]\n[numbers…]” and delimiter can
+                be of any length
+                for example “//***\n1***2”
+                should return three where the default delimiter is ‘***’
+             else:
+                it will throw an Assertion Error
+        """
+        self.assertEqual(string_calculator("//***\n1***2"), 3)
+        self.assertEqual(string_calculator("//;;;;\n1;;;;2,5"), 8)
+        self.assertEqual(string_calculator("//,,\n1\n2,,5"), 8)
+        self.assertEqual(string_calculator("//:::\n1:::2,4"), 7)
+
 
 if __name__ == '__main__':
     unittest.main()
